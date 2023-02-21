@@ -24,9 +24,11 @@
 
 <script>
 import BlocklyComponent from "./components/BlocklyComponent.vue";
-import "./blocks/stocks";
-
 import BlocklyJS from "blockly/javascript";
+
+// 自定义块导入
+import "./blocks/Currency";
+
 
 export default {
   name: "app",
@@ -347,8 +349,11 @@ export default {
   <category name="变量" colour="#a55b80" custom="VARIABLE"></category>
   <category name="函数" colour="#995ba5" custom="PROCEDURE"></category>
   <sep></sep>
-  <category name="基础接口" colour="#9fa55b">
+
+  <category name="通用接口" colour="#5ba55b">
+    <block type="regplugins"></block>
   </category>
+  <category name="基础接口" colour="#5b80a5"></category>
 </xml>
                 `,
         zoom: {
@@ -438,20 +443,20 @@ body {
   height: 100%;
 }
 
-button{
-	font-family: "'微软雅黑','Helvetica Neue',Helvetica,Arial,sans-serif";
-	font-size: 10px!important;
-	height: 25px;
-	line-height: 18px!important;
-	padding: 3px 18px;
-	display: inline-block;
-	vertical-align: middle;
-	font-weight: normal;
-	border-radius: 3px;
-	margin: 0 8px 0 3px;
-	border: 1px solid #3383da;
-	/*color: #ffffff;
+button {
+  font-family: "'微软雅黑','Helvetica Neue',Helvetica,Arial,sans-serif";
+  font-size: 10px !important;
+  height: 25px;
+  line-height: 18px !important;
+  padding: 3px 18px;
+  display: inline-block;
+  vertical-align: middle;
+  font-weight: normal;
+  border-radius: 3px;
+  margin: 0 8px 0 3px;
+  border: 1px solid #3383da;
+  /*color: #ffffff;
 	background-color: #3383da;*/
-	cursor: pointer;
+  cursor: pointer;
 }
 </style>
