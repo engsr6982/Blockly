@@ -4,9 +4,9 @@
     <p id="code">
     <pre v-html="code"></pre>
 
-    <button v-on:click="toggleCode" style="position:absolute;right:3px;top:0px;/*z-index:0*/">预览代码</button>
+    <button v-on:click="toggleCode" style="position:absolute;right:0px;top:0px;/*z-index:0*/">预览代码</button>
 
-    <button style="position:absolute;right:3px;top:25px;" @click="downloadjs()">下载代码</button>
+    <button style="position:absolute;right:0px;top:28px;" @click="downloadjs()">下载代码</button>
 
     <!-- TODO
     <button style="position:absolute;right:3px;top:25px;" @click="download_xml()">
@@ -274,22 +274,6 @@ export default {
         </shadow>
       </value>
     </block>
-    <block type="text_print">
-      <value name="TEXT">
-        <shadow type="text">
-          <field name="TEXT">abc</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="text_prompt_ext">
-      <mutation type="TEXT"></mutation>
-      <field name="TYPE">TEXT</field>
-      <value name="TEXT">
-        <shadow type="text">
-          <field name="TEXT">abc</field>
-        </shadow>
-      </value>
-    </block>
   </category>
   <category name="列表" colour="#745ba5">
     <block type="lists_create_with">
@@ -382,16 +366,16 @@ export default {
     downloadjs() {
       let str = this.code;
       function custon_file() {
-        var name = prompt("请输入要生成的文件名：", "plugins_lxl");
+        var name = prompt("请输入文件名：", "blockly_js");
         if (name != null) {
-          window.alert("文件名为 " + name + ".js\n点击确认开始下载...")
-          download(name + ".js", str);
+          window.alert(`文件名为${name}.js\n点击确认开始下载...`)
+          download(`${name}.js`, str);
         }
       }
-      function download(filename, text) {
+      function download(name, text) {
         var element = document.createElement('a');
         element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-        element.setAttribute('download', filename);
+        element.setAttribute('download', name);
         element.style.display = 'none';
         document.body.appendChild(element);
         element.click();
@@ -412,7 +396,6 @@ export default {
       this.showCode = !this.showCode;
       if (this.showCode) { // Show code 
         document.getElementById("code").style.width = "30%";
-        this.showCode()
       }
       else { // Hide code 
         document.getElementById("code").style.width = "0";
@@ -444,15 +427,13 @@ body {
   margin: 0;
   background-color: beige;
   --color-primary: 33, 150, 243;
-  transition: width 1s ease;
-  /*display: none;*/
+  transition: width 0.5s ease;
 }
 
 #blockly {
   position: absolute;
   left: 1;
   top: 0;
-  /*width: 70%;*/
   width: 100%;
   height: 100%;
 }
@@ -469,8 +450,8 @@ button{
 	border-radius: 3px;
 	margin: 0 8px 0 3px;
 	border: 1px solid #3383da;
-	color: #ffffff;
-	background-color: #3383da;
+	/*color: #ffffff;
+	background-color: #3383da;*/
 	cursor: pointer;
 }
 </style>
