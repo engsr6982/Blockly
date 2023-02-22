@@ -21,9 +21,10 @@ jobs:
     - uses: actions/checkout@v2   # 第一步，检出仓库副本
 
     - name: Use Node.js ${{ matrix.node-version }} #规定node.js版本
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
+        cache: 'npm'
 
     - name: Install dependencies  # 第二步，安装依赖
       run: npm install
@@ -31,7 +32,7 @@ jobs:
     - name: Build                 # 第三步，打包代码
       run: npm run build --if-present
 
-    - name: Upload Actions File
+    - name: Upload Actions File   # 第四步
       uses: actions/upload-artifact@v2.2.4
       with:
         name: blockly
@@ -44,6 +45,6 @@ jobs:
         # 该workflow需要操作repo，因此需要一个密钥，下面会讲到如何获取这个密钥
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         # 发布到的分支
-        BRANCH: main
+        BRANCH: gh-pages
         # 要发布的文件夹
-        FOLDER: ./dist
+        FOLDER: dist
