@@ -1,0 +1,41 @@
+name: Bulid Blockly
+
+on:
+  push:
+    branches:
+      - main  # 只在master上push触发部署
+    paths-ignore:   # 下列文件的变更不触发部署，可以自行添加
+      - README.md
+      - LICENSE
+
+jobs:
+  build-production:
+
+    runs-on: ubuntu-latest   # 使用ubuntu系统镜像运行自动化脚本
+    strategy:
+      matrix:
+        node-version: [16.x] # 配置所需node版本
+    steps:  # 自动化步骤
+    - uses: actions/checkout@v2   # 第一步，检出仓库副本
+
+    - name: Use Node.js ${{ matrix.node-version }} #规定node.js版本(可不配置)
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install dependencies  # 第二步，安装依赖
+      run: npm install
+
+    - name: Build                 # 第三步，打包代码
+      run: npm run build --if-present
+
+    # 执行JamesIves/github-pages-deploy-action将项目发布到Github Pages
+    - name: Deploy
+      uses: JamesIves/github-pages-deploy-action@3.7.1
+      with:
+        # 该workflow需要操作repo，因此需要一个密钥，下面会讲到如何获取这个密钥
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        # 发布到的分支
+        BRANCH: gh-pages
+        # 要发布的文件夹
+        FOLDER: dist
