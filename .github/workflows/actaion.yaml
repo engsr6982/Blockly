@@ -3,10 +3,12 @@ name: Bulid Blockly
 on:
   push:
     branches:
-      - main  # 只在master上push触发部署
-    paths-ignore:   # 下列文件的变更不触发部署，可以自行添加
+      - main  # 只在main上push触发部署
+    paths-ignore:   # 下列文件的变更不触发部署
       - README.md
       - LICENSE
+      - XML/
+      - tools/
 
 jobs:
   build-production:
@@ -14,11 +16,11 @@ jobs:
     runs-on: ubuntu-latest   # 使用ubuntu系统镜像运行自动化脚本
     strategy:
       matrix:
-        node-version: [16.x] # 配置所需node版本
+        node-version: [16.4] # 配置所需node版本
     steps:  # 自动化步骤
     - uses: actions/checkout@v2   # 第一步，检出仓库副本
 
-    - name: Use Node.js ${{ matrix.node-version }} #规定node.js版本(可不配置)
+    - name: Use Node.js ${{ matrix.node-version }} #规定node.js版本
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
@@ -30,7 +32,7 @@ jobs:
       run: npm run build --if-present
 
     # 执行JamesIves/github-pages-deploy-action将项目发布到Github Pages
-    - name: Deploy
+    - name: Github Pages
       uses: JamesIves/github-pages-deploy-action@3.7.1
       with:
         # 该workflow需要操作repo，因此需要一个密钥，下面会讲到如何获取这个密钥
