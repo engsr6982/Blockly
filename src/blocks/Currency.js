@@ -1,5 +1,6 @@
 import * as Blockly from 'blockly/core';
 
+// 注册插件
 Blockly.Blocks['regplugins'] = {
     init: function () {
         this.appendValueInput("名称")
@@ -22,7 +23,6 @@ Blockly.JavaScript['regplugins'] = function (block) {
     var value___name = Blockly.JavaScript.valueToCode(block, '名称', Blockly.JavaScript.ORDER_ATOMIC);
     var value___jj = Blockly.JavaScript.valueToCode(block, '简介', Blockly.JavaScript.ORDER_ATOMIC);
     var value___vs = Blockly.JavaScript.valueToCode(block, '版本', Blockly.JavaScript.ORDER_ATOMIC);
-    // TODO: Assemble JavaScript into code variable.
     var code = `ll.registerPlugin(${value___name}, ${value___jj}, ${value___vs}, {})`;
     return code;
 };

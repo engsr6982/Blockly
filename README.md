@@ -1,5 +1,7 @@
 # Blockly
 
+> 基于Google Blockly的Blockly LLSE
+
 ## 安装VUE CLI
 ```cmd
 npm install -g @vue/cli

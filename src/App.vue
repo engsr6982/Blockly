@@ -353,7 +353,6 @@ export default {
   <category name="通用接口" colour="#5ba55b">
     <block type="regplugins"></block>
   </category>
-  <category name="基础接口" colour="#5b80a5"></category>
 </xml>
                 `,
         zoom: {
