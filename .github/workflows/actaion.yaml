@@ -31,6 +31,12 @@ jobs:
     - name: Build                 # 第三步，打包代码
       run: npm run build --if-present
 
+    - name: Upload Actions File
+      uses: actions/upload-artifact@v2.2.4
+      with:
+        name: blockly
+        path: ./dist
+
     # 执行JamesIves/github-pages-deploy-action将项目发布到Github Pages
     - name: Github Pages
       uses: JamesIves/github-pages-deploy-action@3.7.1
