@@ -27,18 +27,3 @@ cache: 'npm'
 with:
   name: blockly
   path: ./dist
-  - name: 通知GitHub Actions的运行结果
-uses: actions/github-script@0.4.0
-with:
-  script: |
-    const { context } = require('@actions/github');
-    const octokit = new github.GitHub(process.env.GITHUB_TOKEN);
-    const { owner, repo } = context.repo;
-    await octokit.issues.create({
-      owner,
-      repo,
-      title: 'GitHub Actions执行完成',
-    body: 'Github Actions已成功完成'
-    });
-- name: 更新gh-pages分支
-run: git push origin HEAD:{gh-pages}
